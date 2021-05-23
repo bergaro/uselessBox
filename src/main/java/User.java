@@ -1,7 +1,7 @@
 public class User implements Runnable {
 
     private final Box box;
-    private final int userTimer = 1000;
+    private final int userTimer = 500;
     private final int countIteration = 5;
 
     public User(Box box) {
@@ -9,7 +9,7 @@ public class User implements Runnable {
     }
     /**
      * Если Box.trigger == false, изменяет его на true 5 раз.
-     * Таймаут = 1 сек.
+     * Если тумблер выключен таймаут = 0,5 сек.
      */
     @Override
     public void run() {
@@ -20,13 +20,12 @@ public class User implements Runnable {
                     break;
                 }
                 if(!box.getTrigger()) {
-
-                        Thread.sleep(userTimer);
-
                     box.setTrigger(true);
                     count++;
                     System.out.println(Thread.currentThread().getName() + " нажал кнопку ВКЛ.");
                     System.out.println("Нажал - " + count + " раз");
+                } else {
+                    Thread.sleep(userTimer);
                 }
             }
             System.out.println("Закончил. Нажал 5 раз.");
